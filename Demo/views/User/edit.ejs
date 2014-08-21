@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+      <script type="text/javascript" src='/javascripts/jquery.min.js'></script>
+      <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>
+   <div class="container">
+       <form onsubmit="return false;" id="form" class="form-horizontal">
+           <fieldset>
+               <legend>修改用户</legend>
+               <label>用户名</label>
+               <input type="hidden" name="id" value="<%= user.id %>">
+               <input type="text" name="name" value="<%= user.name %>">
+               <label>电子邮件</label>
+               <input type="text" name="email" value="<%= user.email %>"/>
+               <br/>     <br/>
+               <button type="submit" class="btn-primary btn" id="sb">Submit</button>
+               <a href="/users" class="btn">返回</a>
+           </fieldset>
+       </form>
+   </div>
+       <script type="text/javascript">
+            $(function(){
+                 $("#sb").on("click",function(){
+                     $.ajax({
+                         url: "/user/update/<%= user.id %>",
+                         type: "POST",
+                         dataType: "json",
+                         data:$("#form").serialize(),
+                         complete: function() {
+                           console.log('process complete');
+                         },
+                         success: function(data) {
+                            if(data.status=="1"){
+                                alert("修改成功");
+                            }else{
+                                alert("修改失败");
+                            }
+                        },
+                         error: function() {
+                           console.log('process error');
+                         }
+                       });
+                 });
+            });
+       </script>
+  </body>
+</html>

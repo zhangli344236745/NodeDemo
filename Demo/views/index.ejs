@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function(){
+             $("#file").on("change",function(){
+                       var data = new FormData();
+                       var files = $('#file')[0].files;
+                       if (files) {
+                          data.append('codecsv',files[0]);
+                       }
+                       $.ajax({
+                           cache: false,
+                           type: 'post',
+                           dataType: 'json',
+                           url:"/index/upload2/",
+                           data : data,
+                           contentType: false,
+                           processData: false,
+                           success : function (data) {
+                              alert("ok");
+                           }
+                       });
+             })
+     });
+    </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form action="/index/upload/" method="post", enctype="multipart/form-data">
+           <input type="file" name="test"  />
+           <input type="submit" value="upload"/>
+    </form>
+
+
+   <input type="file" name="file" id="file"/>
+
+
+  </body>
+</html>

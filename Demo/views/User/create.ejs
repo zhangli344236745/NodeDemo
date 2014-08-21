@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+    <script type="text/javascript" src='/javascripts/jquery.min.js'></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+
+
+<form method="post" onsubmit="return false;" id="form">
+    <fieldset>
+        <legend>增加用户</legend>
+        <label>用户名</label>
+        <input type="text" name="name" value="">
+        <label>用户名</label>
+        <input type="text" name="email" value="">
+        <br/>
+        </br>
+        <button type="submit" class="btn btn-primary" id="sb">确定</button>
+        <a href="/users" class="btn">返回</a>
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+    $(function(){
+        $("#sb").on("click",function(){
+            $.ajax({
+                url: "/user/create",
+                type: "POST",
+                dataType: "json",
+                data:$("#form").serialize(),
+                cache: false,
+                timeout: 5000,
+                complete: function() {
+                    console.log('process complete');
+                },
+                success: function(data) {
+                    if(data.status=="1"){
+                        alert("增加成功")
+                    }
+                },
+                error: function() {
+                    console.log('process error');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+    <script type="text/javascript" src='/javascripts/jquery.min.js'></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>
+  <div class="container">
+      <a href="/user/create" class="btn btn-primary">增加新用户</a>
+      <br/>  <br/>
+      <table class="table">
+          <tr>
+              <th>姓名</th>
+              <th>电子邮件</th>
+              <th>操作</th>
+          </tr>
+          <% if(users){%>
+          <%for(var i=0;i<users.length;i++){%>
+          <tr>
+              <td><%= users[i].name%></td>
+              <td><%= users[i].email%></td>
+              <td>
+                  <a href="#" data-id="<%= users[i].id %>" seed="delete">删除</a>
+                  <a href="/edit/<%= users[i].id %>">编辑</a>
+              </td>
+          </tr>
+          <%}%>
+          <% }%>
+      </table>
+  </div>
+  <script type="text/javascript">
+      $(function(){
+          $("[seed=delete]").on("click",function(){
+              var id=$(this).attr("data-id");
+              var url="/user/delete/"+id;
+              $.ajax({
+                  url:url,
+                  datatype:"json",
+                  type:"post",
+                  success:function(data){
+                    if(data.status=="1"){
+                        alert("删除成功");
+                        location.reload();
+                    }else{
+                        alert("删除失败");
+                    }
+                  },
+                  error:function(){
+
+                  }
+              });
+          });
+      });
+  </script>
+  </body>
+</html>
