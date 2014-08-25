@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="javascripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="javascripts/underscore.js"></script>
+    <script type="text/javascript" src="javascripts/backbone.js"></script>
+    <script type="text/javascript" src="javascripts/models/post.js"></script>
+    <script type="text/javascript" src="javascripts/views/postview.js"></script>
+
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div id="test"></div>
+    <div id="t" class="t">
+        <div class="t1">1</div>
+        <div class="t2">2</div>
+        <div class="t3">3</div>
+    </div>
+    <input type="text" name="Extend[1]" value="sdf"/>
+    <input type="text" name="Extend[2]" value="ff"/>
+    <input type="text" name="Extend[3]" value="f"/>
+
+   <input type="button" value="导出excel" id="import"/>
+    <div id="test"></div>
+   <script type="text/javascript">
+       $("#import").on("click",function(){
+           window.location="/testexcel";
+       });
+       var pv=new PostView();
+       console.log($("input[name^=Extend]"));
+       console.log($("input[name^=Extend]").length);
+       var inputs=$("input[name^=Extend]");
+       for(var i=0;i<inputs.length;i++){
+           var obj=$(inputs[i]);
+           console.log(obj.val());
+       }
+       /*var view=new Backbone.View;
+       var el=view.make("h3",{className:"sdf"},"sdf");
+       $("#test").append(el);*/
+   </script>
+  </body>
+</html>
